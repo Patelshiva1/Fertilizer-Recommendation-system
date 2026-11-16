@@ -1,411 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Detail.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <title>Document</title>
-  </head>
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
-    :root {
-      --red: #008116;
-    }
-    * {
-      font-family: "Nunito", sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      outline: none;
-      border: none;
-      text-decoration: none;
-      text-transform: capitalize;
-      transition: all 0.2s linear;
-    }
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<title>Fertilizer Details - FertiGuide</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-    *::selection {
-      background: var(--red);
-      color: #fff;
-    }
+		:root {
+			--primary: #2ecc71;
+			--primary-dark: #27ae60;
+			--secondary: #3498db;
+			--dark: #2c3e50;
+			--light: #ecf0f1;
+			--text: #34495e;
+			--border-radius: 12px;
+			--shadow: 0 10px 30px rgba(0,0,0,0.1);
+			--transition: all 0.3s ease;
+		}
 
-    html {
-      font-size: 62.5%;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      scroll-padding-top: 6rem;
-    }
+		html {
+			scroll-behavior: smooth;
+			font-size: 16px;
+		}
 
-    body {
-      background: #f7f7f7;
-    }
-    /* All buttons properties herer */
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 3rem;
-      border: 0.2rem solid var(--red);
-      color: var(--red);
-      cursor: pointer;
-      font-size: 1.7rem;
-      border-radius: 0.5rem;
-      position: relative;
-      overflow: hidden;
-      z-index: 0;
-      margin-top: 1rem;
-    }
+		body {
+			font-family: 'Poppins', sans-serif;
+			color: var(--text);
+			background: #f8fafb;
+			line-height: 1.6;
+		}
 
-    .btn:hover {
-      color: #fff;
-      background-color: #2bc570;
-    }
-    /* All buttons properties herer */
-    /* ------------------------------------------------------------------------------------- */
-    .heading {
-      text-align: center;
-      font-size: 3.5rem;
-      padding: 1rem;
-      color: #666;
-    }
+		/* ============ HEADER ============ */
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			background: rgba(255, 255, 255, 0.98);
+			backdrop-filter: blur(10px);
+			padding: 1rem 5%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 1000;
+			box-shadow: var(--shadow);
+		}
 
-    .heading span {
-      color: var(--red);
-    }
+		.logo {
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: var(--primary-dark);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			text-decoration: none;
+		}
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #fff;
-      padding: 2rem 9%;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    }
+		.navbar {
+			display: flex;
+			gap: 2rem;
+		}
 
-    header .logo {
-      font-size: 2.5rem;
-      font-weight: bolder;
-      color: #666;
-    }
+		.navbar a {
+			color: var(--text);
+			text-decoration: none;
+			font-weight: 500;
+			position: relative;
+			transition: var(--transition);
+		}
 
-    header .logo i {
-      padding-right: 0.5rem;
-      color: var(--red);
-    }
+		.navbar a::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: var(--primary);
+			transition: var(--transition);
+		}
 
-    header .navbar a {
-      font-size: 2rem;
-      margin-left: 2rem;
-      color: #666;
-    }
+		.navbar a:hover::after {
+			width: 100%;
+		}
 
-    header .navbar a:hover {
-      color: var(--red);
-    }
+		#menu-bar {
+			display: none;
+			background: none;
+			border: none;
+			color: var(--primary);
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
 
-    #menu-bar {
-      font-size: 3rem;
-      cursor: pointer;
-      color: rgb(62, 204, 7);
-      border: 0.1rem solid #666;
-      border-radius: 0.3rem;
-      padding: 0.5rem 1.5rem;
-      display: none;
-    }
+		/* ============ MAIN CONTENT ============ */
+		section {
+			padding: 5rem 5%;
+			margin-top: 70px;
+		}
 
-    @media (max-width: 768px) {
-      #menu-bar {
-        display: initial;
-      }
+		.section-title {
+			text-align: center;
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: var(--dark);
+			margin-bottom: 3rem;
+		}
 
-      header .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgb(225, 248, 227);
-        border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-      }
-      header .navbar a:hover {
-        background-color: rgb(127, 224, 136);
-      }
+		.section-title span {
+			color: var(--primary);
+		}
 
-      header .navbar.active {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-      }
+		/* ============ INFO CARDS ============ */
+		.info-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+			margin-bottom: 3rem;
+		}
 
-      header .navbar a {
-        margin: 1.5rem;
-        padding: 1.5rem 140px;
-        display: block;
-        border: 0.2rem solid rgba(0, 0, 0, 0.1);
-        border-left: 0.5rem solid var(--red);
-        /* background:#fff; */
-      }
-      
-    }
+		.info-card {
+			background: white;
+			padding: 2rem;
+			border-radius: var(--border-radius);
+			box-shadow: var(--shadow);
+			transition: var(--transition);
+			border-left: 5px solid var(--primary);
+		}
 
-    /* home section css */
+		.info-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+		}
 
-    section {
-      padding: 2rem 9%;
-    }
-    .home {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 50vh;
-      align-items: center;
-    }
-    .home .heading {
-      color: #008116;
-      padding-top: 10rem;
-    }
-    .home .content .plants_and_their_info {
-      padding-top: 1.5rem;
-    }
-    .plants_and_their_info .charts img {
-      width: 70rem;
-    margin: 20px 30rem;
-    padding: 0px;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-    }
-    
-    .home .plants_and_their_info h1 {
-      font-size: 2rem;
-    }
-    .home .plants_and_their_info p span {
-      color: rgb(1, 136, 1);
-      background-color: #d0e6d3;
-    }
-    .home .plants_and_their_info li {
-      font-size: 1.7rem;
-      padding: 0.3rem;
-      margin-left: 4rem;
-    }
-    .home .plants_and_their_info h2 {
-      font-size: 2.5rem;
-    }
-    .home .content h3 {
-      font-size: 5rem;
-      color: rgb(109, 109, 109);
-    }
+		.info-card h3 {
+			color: var(--dark);
+			margin-bottom: 1rem;
+			font-size: 1.5rem;
+		}
 
-    .home .content p {
-      font-size: 1.7rem;
-      color: rgb(41, 41, 41);
-      padding: 1rem 0;
-    }
-    .home .content p:hover {
-      font-weight: bolder;
-    }
-  </style>
-  <body>
-    <header>
-      <a href="#" class="logo"><i class="fas fa-seedling"></i>Ferti</a>
+		.info-card p {
+			color: var(--text);
+			line-height: 1.8;
+			font-size: 0.95rem;
+		}
 
-      <div id="menu-bar" class="fas fa-bars"></div>
+		.info-card ul {
+			list-style: none;
+			margin-top: 1rem;
+		}
 
-      <nav class="navbar">
-        <a href="{{ url_for('home') }}">home</a>
-        <a href="{{ url_for('Model1') }}">Model</a>
-      </nav>
-    </header>
-    <!-- home section starts  -->
+		.info-card li {
+			padding: 0.5rem 0;
+			padding-left: 1.5rem;
+			position: relative;
+			color: var(--text);
+		}
 
-    <section class="home" id="home">
-      <h1 class="heading">Fertilizer Recommendation System</h1>
-      <div class="content">
-        <p>
-          The Fertilizer Recommendation System is a smart agricultural tool
-          designed to help farmers make informed decisions about the types and
-          quantities of fertilizers to use on their crops. By analyzing soil
-          data, crop types, and local weather conditions, this system provides
-          personalized fertilizer recommendations to optimize crop yield and
-          reduce input costs.
-        </p>
+		.info-card li:before {
+			content: "✓";
+			position: absolute;
+			left: 0;
+			color: var(--primary);
+			font-weight: bold;
+		}
+
+		/* ============ FOOTER ============ */
+		footer {
+			background: var(--dark);
+			color: white;
+			text-align: center;
+			padding: 2rem;
+			margin-top: 3rem;
+		}
+
+		/* ============ RESPONSIVE ============ */
+		@media (max-width: 768px) {
+			header {
+				padding: 1rem 3%;
+			}
+
+			.navbar {
+				position: absolute;
+				top: 70px;
+				left: 0;
+				right: 0;
+				background: white;
+				flex-direction: column;
+				gap: 1rem;
+				padding: 1.5rem;
+				box-shadow: var(--shadow);
+				max-height: 0;
+				overflow: hidden;
+				transition: var(--transition);
+			}
+
+			.navbar.active {
+				max-height: 500px;
+			}
+
+			#menu-bar {
+				display: block;
+			}
+
+			section {
+				padding: 3rem 3%;
+				margin-top: 70px;
+			}
+
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.info-container {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- HEADER -->
+	<header>
+		<a href="#" class="logo">
+			<i class="fas fa-leaf"></i>
+			<span>FertiGuide</span>
+		</a>
+		<nav class="navbar">
+			<a href="{{ url_for('home') }}">Home</a>
+			<a href="{{ url_for('Detail') }}">Details</a>
+			<a href="{{ url_for('Model1') }}">Predict</a>
+		</nav>
+		<button id="menu-bar" class="fas fa-bars"></button>
+	</header>
+
+	<!-- MAIN CONTENT -->
+	<section>
+		<h1 class="section-title">📚 Fertilizer <span>Details & Information</span></h1>
         
+        <div style="text-align: center; margin-bottom: 2rem;" id="search-status-container">
+            <p id="search-status" style="display: none; font-size: 1.2rem;"></p>
+            <button id="clear-search" class="btn" style="display: none; margin-top: 1rem; background: var(--secondary); color: white;">Clear Search</button>
+        </div>
+        <div class="info-container">
+			<!-- Nitrogen Info -->
+			<div class="info-card">
+				<h3>🌾 Nitrogen (N)</h3>
+				<p>Nitrogen is essential for plant growth and chlorophyll production. It promotes:</p>
+				<ul>
+					<li>Leaf and stem growth</li>
+					<li>Protein synthesis</li>
+					<li>Vegetative growth</li>
+					<li>Deep green leaf color</li>
+					<li>Increased crop yield</li>
+				</ul>
+			</div>
 
-        <div class="plants_and_their_info">
-          <h3 style="font-size: large;">Key points used in projects are mention below:</h3>
-          <br>
-          <h1> N (Nitrogen)</h1>
-          <p>
-            N (Nitrogen) : Nitrogen content in the soil. Nitrogen is really important for plant growth (structure), plant food processing (metabolism), and the creation of chlorophyll. Without enough nitrogen in the plant, the plant cannot grow taller, or produce enough food (usually yellow)
-          </p>
-        </div>
-        <div class="plants_and_their_info">
-          <h1> P (Phosphorus)</h1>
-          <p>
-            P (Phosphorus) : Phosphorus content  in the soil. Phosphorus primary role in a plant is to store and transfer energy produced by photosynthesis for use in growth and reproductive processes. Soil P cycles in a variety forms in the soil 
-          </p>
-        </div>
-        <div class="plants_and_their_info">
-          <h1> K (Potassium)</h1>
-          <p>
-            K (Potassium) : Potassium content in the soil. Potassium is an essential nutrient for plant growth.
-          </p>
-        </div>
-        <div class="plants_and_their_info">
-          <h1>Temperature</h1>
-          <p>
-            Temperature : Temperature in degree censius. High temperatures affect plant growth in numerous ways. The most obvious are the effects of heat on photosynthesis, in which plants use carbon dioxide to produce oxygen, and respiration, an opposite process in which plants use oxygen to produce carbon dioxide.
-          </p>
-        </div>
+			<!-- Phosphorus Info -->
+			<div class="info-card">
+				<h3>🌻 Phosphorous (P)</h3>
+				<p>Phosphorous supports energy transfer and root development:</p>
+				<ul>
+					<li>Root system strengthening</li>
+					<li>Flower and fruit production</li>
+					<li>Energy metabolism</li>
+					<li>Disease resistance</li>
+					<li>Seed development</li>
+				</ul>
+			</div>
 
-        <div class="plants_and_their_info">
-          <h1>Humidity</h1>
-          <p>
-            Humidity : Relative humidity in %. When conditions are too humid, it may promote the growth of mold and bacteria that cause plants to die and crops to fail, as well as conditions like root or crown rot. Humid conditions also invite the presence of pests, such as fungus gnats, whose larva feed on plant roots and thrive in moist soil.
-          </p>
-        </div>
+			<!-- Potassium Info -->
+			<div class="info-card">
+				<h3>💪 Potassium (K)</h3>
+				<p>Potassium regulates plant functions and enhances quality:</p>
+				<ul>
+					<li>Water retention</li>
+					<li>Disease resistance</li>
+					<li>Fruit quality improvement</li>
+					<li>Stress tolerance</li>
+					<li>Plant vigor</li>
+				</ul>
+			</div>
 
-        <div class="plants_and_their_info">
-          <h1>moisture</h1>
-          <p>
-          Soil moisture :  data helps to assess the water content in the soil, which directly impacts nutrient availability and crop health
-          </p>
-        </div>
-        <div class="plants_and_their_info">
-          <h1>Soil Type</h1>
-          <p>
-            Soil type profoundly influences crop growth. Sandy soils offer good drainage but may lack nutrients, while clayey soils retain moisture but can become compacted. Loamy soils strike a balance, providing ideal conditions for most crops. Understanding and managing soil types is critical for optimizing crop health and yield.
-          </p>
-        </div>
-        <div class="plants_and_their_info">
-          <h1>Label</h1>
-          <p>
-            Label : This is the output variable which contains 22 unique values i.e., 22 different crops and they are 
-    1. '10-26-26'
-    2. '14-35-14'
-    3. '17-17-17'
-    4. '20-20'
-    5. '28-28'
-    6. 'DAP'
-    7. 'Urea'
-          </p>
-        </div>
-<div class="plants_and_their_info">
-  <div class="charts">
-  <img src="{{ url_for('static', filename='images/o1.png') }}" alt="">
-</div>
-</div>
-<div class="plants_and_their_info">
-  <div class="charts">
-  <img src="{{ url_for('static', filename='images/o2.png') }}" alt="">
-</div>
-</div>
-<div class="plants_and_their_info">
-  <div class="charts">
-  <img src="{{ url_for('static', filename='images/o3.png') }}" alt="">
-</div>
-</div>
-<div class="plants_and_their_info">
-  <div class="charts">
-  <img src="{{ url_for('static', filename='images/o4.png') }}" alt="">
-</div>
-</div>
-        <!-- <div class="plants_and_their_info">
-          <h2>Care Instructions for Live Plants to Keep Them Alive</h2>
-          <p>
-            Often people misunderstand the concept of less care of plants with
-            zero or no care. The usual thoughts of buying any green plant and
-            leaving it unattended lead to its poor health and further
-            degradation from the tip down to hidden deep roots. It's true that
-            unlike regular plants, these require less maintenance and care,
-            however, what distinguishes them from the other plants are just a
-            few tips, and these can bloom right away. Thus,<span
-              >By following these quick and easy instructions, you can save your
-              little green buddy and liven your indoors and outdoors at the same
-              time..</span
-            >
-          </p>
-          <ol>
-            <li>
-              Along with a sheltered location, houseplants require partial
-              sunlight.
-            </li>
-            <li>Spray water evenly, instead of pouring a mugful in one go.</li>
-            <li>
-              Check the soil mixture before watering. Prefer a well-drained soil
-              for proper aeration and better growth.
-            </li>
-            <li>Require manuring every two months.</li>
-            <li>
-              Regular pruning is always a good idea when it comes to houseplants
-            </li>
-            <li>
-              Water them with ice cubes, the slow release of water will keep
-              your plants hydrated and will help you avoid the accidental
-              gushing of water.
-            </li>
-            <li>
-              Soil drying out quickly, roots growing through the drainage holes
-              are great signs to know that your plant is ready to be
-              transplanted.
-            </li>
-            <li>
-              Wipe the dull-looking leaves with warm milk or mayonnaise for
-              extra shine.
-            </li>
-            <li>Enrich the plant with an organic water-soluble fertilizer.</li>
-            <li>Allow the surface to dry out before watering it again.</li>
-            <li>Avoid leaving the plant sitting in water.</li>
-            <li>
-              Boost humidity by placing a tray of pebbles and warm water
-              underneath.
-            </li>
-            <li>Protect the plant from cold, drying winds in winter.</li>
-            <li>Trimming the tips of the plant can boost new growth.</li>
-            <li>Divide the plant every four years to encourage new growth.</li>
-            <li>
-              Hydrate your plants with a nutrient-filled liquid such as
-              vegetable stock or the leftover boiled eggs water.
-            </li>
-            <li>Add a layer of gravel before adding soil and the plant</li>
-            <li>
-              When you first receive your new sapling, shake off excess water,
-              and set them in a place to dry off.
-            </li>
-            <li>
-              Solve all the pest problems with a few drops of organic Neem oil.
-            </li>
-            <li>Reposition your plant's location every now and then.</li>
-          </ol>
-        </div> -->
-      </div>
-    </section>
-    <section class="footer" style="background-color: rgb(255, 255, 255)">
-      <h1>
-        Fertilizer Recommendation System... Created by krushnakant bankar &
-        Tejas Golhar..
-      </h1>
-    </section>
-    <script>
-      let menu = document.querySelector("#menu-bar");
-      let navbar = document.querySelector(".navbar");
+			<!-- NPK Balance -->
+			<div class="info-card">
+				<h3>⚖️ NPK Balance</h3>
+				<p>The NPK ratio is crucial for optimal plant nutrition:</p>
+				<ul>
+					<li>Different crops need different ratios</li>
+					<li>Balanced nutrients prevent deficiencies</li>
+					<li>Soil testing determines exact needs</li>
+					<li>Seasonal adjustments are important</li>
+					<li>Overuse can harm the soil</li>
+				</ul>
+			</div>
 
-      menu.onclick = () => {
-        menu.classList.toggle("fa-times");
-        navbar.classList.toggle("active");
-      };
-      window.onscroll = () => {
-        menu.classList.remove("fa-times");
-        navbar.classList.remove("active");
+			<!-- Soil Types -->
+			<div class="info-card">
+				<h3>🌍 Soil Types</h3>
+				<p>Different soils have different nutrient-holding capacities:</p>
+				<ul>
+					<li><strong>Loamy:</strong> Best for most crops</li>
+					<li><strong>Black:</strong> Rich in organic matter</li>
+					<li><strong>Clayey:</strong> Compact, needs drainage</li>
+					<li><strong>Red:</strong> Acidic, needs amendments</li>
+					<li><strong>Sandy:</strong> Drains quickly, needs frequent feeding</li>
+				</ul>
+			</div>
 
-        if (window.scrollY > 60) {
-          document.querySelector("#scroll-top").classList.add("active");
-        } else {
-          document.querySelector("#scroll-top").classList.remove("active");
+			<!-- Environmental Factors -->
+			<div class="info-card">
+				<h3>🌡️ Environmental Factors</h3>
+				<p>Temperature and humidity affect nutrient availability:</p>
+				<ul>
+					<li>Temperature impacts nutrient uptake</li>
+					<li>Humidity affects disease development</li>
+					<li>Moisture influences nutrient availability</li>
+					<li>Seasonal changes require adjustments</li>
+					<li>Weather patterns guide application timing</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- BEST PRACTICES SECTION -->
+	<section>
+		<h2 class="section-title">🎯 Best <span>Practices</span></h2>
+		<!---->
+
+		<h1 class="section-title">📚 Fertilizer <span>Details & Information</span></h1>
+        
+        <div style="text-align: center; margin-bottom: 2rem;" id="search-status-container">
+            <p id="search-status" style="display: none; font-size: 1.2rem;"></p>
+            <button id="clear-search" class="btn" style="display: none; margin-top: 1rem; background: var(--secondary); color: white;">Clear Search</button>
+        </div>
+        <div class="info-container">
+		
+		<div class="info-container">
+			<div class="info-card">
+				<h3>📋 Before Application</h3>
+				<ul>
+					<li>Conduct soil testing</li>
+					<li>Check crop requirements</li>
+					<li>Monitor weather conditions</li>
+					<li>Calculate correct dosage</li>
+					<li>Prepare application equipment</li>
+				</ul>
+			</div>
+
+			<div class="info-card">
+				<h3>🚜 During Application</h3>
+				<ul>
+					<li>Apply at recommended times</li>
+					<li>Use proper safety equipment</li>
+					<li>Follow label instructions</li>
+					<li>Ensure even distribution</li>
+					<li>Water after application</li>
+				</ul>
+			</div>
+
+			<div class="info-card">
+				<h3>📊 After Application</h3>
+				<ul>
+					<li>Monitor plant response</li>
+					<li>Track growth patterns</li>
+					<li>Record weather changes</li>
+					<li>Note pest issues</li>
+					<li>Plan next application</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<footer>
+		<p><strong>FertiGuide - Smart Fertilizer Recommendation System</strong></p>
+		<p>For more information, contact our support team</p>
+		<p>&copy; CREATED BY RITESH HONSHETTE @ ICFAITECH 2025 All Rights Reserved</p>
+	</footer>
+
+	<script>
+        // Mobile menu toggle
+        const menuBar = document.getElementById('menu-bar');
+        // ... (all your existing menu toggle code) ...
+        window.addEventListener('scroll', () => {
+            navbar.classList.remove('active');
+        });
+
+        // --- ADD THIS SCRIPT ---
+        // NEW: Search and filter logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            
+            if (query && query.trim() !== '') {
+                filterCards(query.trim());
+            }
+        });
+
+        function filterCards(query) {
+            const normalizedQuery = query.toLowerCase();
+            const cards = document.querySelectorAll('.info-card');
+            const statusElement = document.getElementById('search-status');
+            const clearButton = document.getElementById('clear-search');
+            let resultsFound = 0;
+
+            cards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(normalizedQuery)) {
+                    card.style.display = 'block'; // Show matching card
+                    resultsFound++;
+                } else {
+                    card.style.display = 'none'; // Hide non-matching card
+                }
+            });
+
+            // Update status message
+            if (resultsFound > 0) {
+                statusElement.textContent = `Showing ${resultsFound} result(s) for "${query}"`;
+                statusElement.style.color = 'var(--dark)';
+            } else {
+                statusElement.textContent = `No details found for "${query}".`;
+                statusElement.style.color = '#e74c3c'; // Error color
+                clearButton.textContent = "Clear Search & View All";
+            }
+            
+            // Show status and clear button
+            statusElement.style.display = 'block';
+            clearButton.style.display = 'inline-block';
+
+            // Make clear button work
+            clearButton.addEventListener('click', () => {
+                // Redirect to the clean Detail page
+                window.location.href = "{{ url_for('Detail') }}";
+            });
         }
-      };
+        // --- END OF NEW SCRIPT ---
     </script>
-  </body>
+</body>
 </html>

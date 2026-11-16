@@ -1,586 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
-    
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Fertilizer Recommendation System</title>
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
-:root{
-    --red:#008116;
-  }
-*{
-
-    font-family: 'Nunito', sans-serif;
-    margin:0; padding:0;
-    box-sizing: border-box;
-    outline: none; border:none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition:all .2s linear;
-  }
-  
-  *::selection{
-    background:var(--red);
-    color:#fff;
-  }
-  
-  html{
-    font-size: 62.5%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
-  }
-  
-  body{
-    background:#f7f7f7;
-  }
-/* All buttons properties herer */
-  .btn{
-    display: inline-block;
-    padding:.8rem 3rem;
-    border:.2rem solid var(--red);
-    color:black;
-    cursor: pointer;
-    font-size: 1.7rem;
-    border-radius: .5rem;
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
-    margin-top: 1rem;
-    background-color: white;
-  }
-    
-  .btn:hover{
-    color:#fff;
-    background-color: #2bc570;
-  }
-/* All buttons properties herer */
-/* ------------------------------------------------------------------------------------- */
-.heading{
-    text-align: center;
-    font-size: 3.5rem;
-    padding:1rem;
-    color:#666;
-  }
-  
-  .heading span{
-    color:var(--red);
-  }
-  
-header{
-    position: fixed;
-    top:0; left: 0; right:0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background:#fff;
-    padding:2rem 9%;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  }
-  
-  header .logo{
-    font-size: 2.5rem;
-    font-weight: bolder;
-    color:#666;
-  }
-  
-  header .logo i{
-    padding-right: .5rem;
-    color:var(--red);
-  }
-  
-  header .navbar a{
-    font-size: 2rem;
-    margin-left: 2rem;
-    color:#666;
-  }
-  
-  header .navbar a:hover{
-    color:var(--red);
-  }
-  
-  #menu-bar{
-    font-size: 3rem;
-    cursor: pointer;
-    color:rgb(62, 204, 7);
-    border:.1rem solid #666;
-    border-radius: .3rem;
-    padding:.5rem 1.5rem;
-    display: none;
-  }
-  
-
-  
-@media(max-width:768px){
-
-    #menu-bar{
-      display: initial;
-    }
-  
-    header .navbar{
-      position: absolute;
-      top:100%; left:0; right:0;
-      background: rgb(225, 248, 227);
-      border-top: .1rem solid rgba(0,0,0,.1);
-      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    }
-    header .navbar a:hover{
-        background-color: rgb(127, 224, 136);
-    }
-  
-    header .navbar.active{
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    }
-  
-    header .navbar a{
-      margin: 1.5rem;
-      padding:1.5rem 140px;
-      display: block;
-      border:.2rem solid rgba(0,0,0,.1);
-      border-left:.5rem solid var(--red);
-      /* background:#fff; */
-    }
-
+    <style>
+        * {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
 
-/* catogrey section */
-.popular .box-container .box1 h3{
-  color:#333;
-  font-size: 2.5rem;
-  padding-top: 1rem;
-}
-.popular .box-container .box1{
-  padding:5rem;
-  width: 120rem;
-  background:#fff;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  border:.1rem solid rgba(0,0,0,.3);
-  border-radius: .5rem;
-  text-align: center;
-  margin-left: 3rem;
-  position: relative;
-}
-.popular .box-container .box1 img{
-  height:30rem;
-  object-fit: cover;
-  width:100%;
-  border-radius: .5rem;
+/* Root variables */
+:root {
+--primary: #2ecc71;
+--primary-dark: #27ae60;
+--secondary: #3498db;
+--dark: #2c3e50;
+--light: #ecf0f1;
+--text: #34495e;
+--border-radius: 12px;
+--shadow: 0 10px 30px rgba(0,0,0,0.1);
+--transition: all 0.3s ease;
 }
 
-/* home section css */
+html {
+scroll-behavior: smooth;
+font-size: 16px;
+}
 
-section{
-    padding:1rem 9%;
-  }
-.home{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
-    min-height: 100vh;
-    align-items: center;
-    background:url("{{ url_for('static', filename='images/crop_background.jpg') }}") no-repeat;
-    background-size: cover;
-    background-position: center;
-    
-  }
-  
-  .home .content{
-    flex:1 1 40rem;
-    padding-top: 6.5rem;
-  }
-  
-  .home .image{
-    flex:1 1 40rem;
-  }
-  
-  
-  
-  .home .content h3{
-    font-size: 5rem;
-    font-weight: bolder;
-    color:rgb(255, 255, 255);
-  }
-  
-  .home .content p{
-    font-size: 1.7rem;
-    color:rgb(245, 244, 244);
-    padding:1rem 0;
-  }
-  .home .content p:hover{
-  
-    font-weight: bolder;
-  }
+body {
+font-family: 'Poppins', sans-serif;
+color: var(--text);
+background: #f8fafb;
+line-height: 1.6;
+}
 
-  /* home section css ends */
-  
+/* ============ HEADER ============ */
+header {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+background: rgba(255, 255, 255, 0.98);
+backdrop-filter: blur(10px);
+padding: 1rem 5%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+z-index: 1000;
+box-shadow: var(--shadow);
+}
 
-  .popular .box-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
-  }
-  
-  .popular .box-container .box{
-    padding:1rem;
-    background:#fff;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-    border:.1rem solid rgba(0,0,0,.3);
-    border-radius: .5rem;
-    text-align: center;
-    
-    position: relative;
-  }
-  
-  .popular .box-container .box img{
-    height:25rem;
-    object-fit: cover;
-    width:100%;
-    border-radius: .5rem;
-  }
-  
-  .popular .box-container .box .price{
+.logo {
+font-size: 1.8rem;
+font-weight: 700;
+color: var(--primary-dark);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+transition: var(--transition);
+text-decoration: none;
+}
+
+.logo:hover {
+transform: scale(1.05);
+}
+
+.logo i {
+font-size: 2rem;
+color: var(--primary);
+}
+
+.navbar {
+display: flex;
+gap: 2rem;
+align-items: center;
+}
+
+.navbar a {
+color: var(--text);
+text-decoration: none;
+font-weight: 500;
+position: relative;
+transition: var(--transition);
+padding: 0.5rem 0;
+}
+
+.navbar a::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 2px;
+background: var(--primary);
+transition: var(--transition);
+}
+
+.navbar a:hover::after {
+width: 100%;
+}
+
+#menu-bar {
+display: none;
+background: none;
+border: none;
+color: var(--primary);
+font-size: 1.5rem;
+cursor: pointer;
+}
+
+/* ============ HERO SECTION ============ */
+.hero {
+margin-top: 70px;
+min-height: calc(100vh - 70px);
+background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+padding: 2rem 5%;
+text-align: center;
+}
+
+.hero-content {
+max-width: 800px;
+}
+
+.hero h1 {
+font-size: 3.5rem;
+font-weight: 700;
+margin-bottom: 1.5rem;
+line-height: 1.2;
+}
+
+.hero p {
+font-size: 1.2rem;
+margin-bottom: 2rem;
+opacity: 0.95;
+line-height: 1.8;
+}
+
+.search-bar {
+display: flex;
+max-width: 500px;
+margin: 1.5rem auto 2.5rem;
+background: white;
+border-radius: var(--border-radius);
+overflow: hidden;
+box-shadow: var(--shadow);
+}
+
+.search-bar input {
+flex-grow: 1;
+padding: 0.8rem 1rem;
+border: none;
+font-size: 1rem;
+color: var(--text);
+}
+
+.search-bar button {
+background: var(--secondary);
+border: none;
+padding: 0.8rem 1.5rem;
+color: white;
+font-size: 1rem;
+cursor: pointer;
+transition: var(--transition);
+}
+
+.search-bar button:hover {
+background: #2980b9;
+}
+
+.btn {
+display: inline-block;
+padding: 0.8rem 2.5rem;
+background: white;
+color: var(--primary-dark);
+border: none;
+border-radius: var(--border-radius);
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+text-decoration: none;
+font-size: 1rem;
+}
+
+.btn:hover {
+transform: translateY(-3px);
+box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+background: var(--secondary);
+color: white;
+margin-left: 1rem;
+}
+
+/* ============ FEATURES SECTION ============ */
+section {
+padding: 5rem 5%;
+}
+
+.section-title {
+text-align: center;
+font-size: 2.5rem;
+font-weight: 700;
+color: var(--dark);
+margin-bottom: 3rem;
+}
+
+.section-title span {
+color: var(--primary);
+}
+
+.features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2rem;
+margin-bottom: 3rem;
+}
+
+.feature-card {
+background: white;
+padding: 2rem;
+border-radius: var(--border-radius);
+text-align: center;
+box-shadow: var(--shadow);
+transition: var(--transition);
+border-top: 4px solid var(--primary);
+}
+
+.feature-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+font-size: 3rem;
+color: var(--primary);
+margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+font-size: 1.5rem;
+margin-bottom: 1rem;
+color: var(--dark);
+}
+
+.feature-card p {
+color: var(--text);
+line-height: 1.8;
+}
+
+/* ============ MODEL SHOWCASE ============ */
+.model-showcase {
+background: white;
+border-radius: var(--border-radius);
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: var(--transition);
+}
+
+.model-showcase:hover {
+transform: scale(1.02);
+}
+
+.model-image {
+width: 100%;
+height: 300px;
+background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 4rem;
+color: white;
+}
+
+.model-content {
+padding: 2rem;
+text-align: center;
+}
+
+.model-content h3 {
+font-size: 1.8rem;
+color: var(--dark);
+margin-bottom: 1rem;
+}
+
+.model-content p {
+color: var(--text);
+margin-bottom: 1.5rem;
+}
+
+/* ============ NEWS & TIPS ============ */
+.news-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+}
+
+.news-card {
+background: white;
+padding: 1.5rem;
+border-radius: var(--border-radius);
+box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+border-left: 5px solid var(--secondary);
+transition: var(--transition);
+}
+
+.news-card:hover {
+transform: translateY(-5px);
+}
+
+.news-card h4 {
+font-size: 1.2rem;
+color: var(--dark);
+margin-bottom: 0.5rem;
+}
+
+.news-card a {
+color: var(--primary);
+text-decoration: none;
+font-weight: 500;
+}
+
+/* ============ GALLERY ============ */
+.gallery {
+background: white;
+border-radius: var(--border-radius);
+padding: 2rem;
+box-shadow: var(--shadow);
+}
+
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+}
+
+.gallery-item {
+position: relative;
+border-radius: var(--border-radius);
+overflow: hidden;
+height: 250px;
+background: var(--light);
+box-shadow: var(--shadow);
+}
+
+.gallery-item img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: var(--transition);
+}
+
+.gallery-item:hover img {
+transform: scale(1.1);
+}
+
+/* ============ FOOTER ============ */
+footer {
+background: var(--dark);
+color: white;
+text-align: center;
+padding: 2rem;
+margin-top: 3rem;
+}
+
+footer p {
+margin: 0.5rem 0;
+opacity: 0.9;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+header {
+    padding: 1rem 3%;
+}
+
+.navbar {
     position: absolute;
-    top:21rem; left:3rem;
-    background:var(--red);
-    color:#fff;
-    font-size: 2rem;
-    padding:.5rem 1rem;
-    border-radius: .5rem;
-  }
-  .popular .box-container .box .btn{
-    margin: 1rem;
-  }
-  .popular .box-container .box h3{
-    color:#333;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.navbar.active {
+    max-height: 500px;
+}
+
+#menu-bar {
+    display: block;
+}
+
+.hero h1 {
     font-size: 2.5rem;
-    padding-top: 1rem;
-  }
-  .popular .box-container .box h2{
-    color:rgb(151, 151, 151);
-    letter-spacing: 1px;
-  }
-  .popular .box-container .box h1{
-    color:rgb(255, 255, 255);
+}
+
+.hero p {
+    font-size: 1rem;
+}
+
+.btn {
+    display: block;
+    margin: 0.5rem auto;
+}
+
+.btn-secondary {
+    margin-left: 0;
+}
+
+section {
+    padding: 3rem 3%;
+}
+
+.section-title {
     font-size: 2rem;
-    background-color: #008116;
-    width: 20%;
-    margin: 1rem;
-    margin-left: 15rem;
-    align-items: center;
-  }
-  .popular .box-container .box .stars i{
-    color:gold;
-    font-size: 1.7rem;
-    padding:1rem .1rem;
-  }
-  
-
-
-  /* services page start herr */
-
-  .steps{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
-    padding:1rem;
-  }
-  
-  .steps .box{
-    flex:1 1 25rem;
-    padding:1rem;
-    text-align: center;
-  }
-  .steps .box1{
-    flex:1 1 25rem;
-    padding:1rem;
-    text-align: center;
-  }
-  .steps .box1 img{
-    width: 19rem;
-    border-radius: 50%;
-    border:1rem solid #fff;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  }
-  .steps .box img{
-    border-radius: 50%;
-    border:1rem solid #fff;
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  }
-  
-  .steps .box,.box1 h3{
-    font-size: 3rem;
-    color:#333;
-    padding:1rem;
-  }
-  
-/* gallery iamges section */
-
-.gallery .box-container{
-  display: flex;
-  flex-wrap: wrap;
-  gap:1.5rem;
 }
-
-.gallery .box-container .box{
-  height:25rem;
-  flex:1 1 32rem;
-  border:1rem solid #fff;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-  border-radius: .5rem;
-  position: relative;
-  overflow: hidden;
 }
-
-.gallery .box-container .box img{
-  height:100%;
-  width:100%;
-  object-fit: cover;
-}
-
-.gallery .box-container .box .content{
-  position: absolute;
-  top:-100%; left:0;
-  height: 100%;
-  width:100%;
-  background:rgba(255,255,255,.9);
-  padding:2rem;
-  padding-top: 5rem;
-  text-align: center;
-}
-
-.gallery .box-container .box .content h3{
-  font-size: 2.5rem;
-  color:#333;
-}
-
-.gallery .box-container .box .content p{
-  font-size: 1.5rem;
-  color:#666;
-  padding:1rem 0;
-}
-
-.gallery .box-container .box:hover .content{
-  top:0;
-}
-
-/* contact form starrt here */
-
-.order .row{
-  padding:2rem;
-  
-  
-  display: flex;
-  flex-wrap: wrap;
-  gap:1.5rem;
-
-}
-
-.order .row .image{
-  flex:1 1 3rem;
-}
-
-.order .row .image img{
-  height: 100%;
-  width:100%;
-  object-fit: cover;
-  border-radius: .5rem;
-}
-
-.order .row form{
-  flex:1 1 50rem;
-  padding:1rem;
-}
-
-.order .row form .inputBox{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.order .row form .inputBox input, .order .row form textarea{
-  padding:1rem;
-  margin:1rem 0;
-  font-size: 1.7rem;
-  color:rgb(5, 54, 7);
-  text-transform: none;
-  border:.1rem solid rgba(0,0,0,.3);
-  border-radius: .5rem;
-  width:49%;
-}
-
-.order .row form textarea{
-  width:100%;
-  resize: none;
-  height:15rem;
-}
-
-.order .row form .btn{
-  background:none;
-}
-
-.order .row form .btn:hover{
-  background:var(--red);
-}
-
-.footer{
-  background-color:slategrey;
-}
-
-  
-@media(max-width:991px){
-
-    html{
-      font-size: 55%;
-    }
-  
-    header{
-      padding:2rem;
-    }
-  
-    section{
-      padding:2rem;
-    }
-  
-  }
-
-</style>
+    </style>
 <body>
-     <header> 
+        <header>
+        <a href="#" class="logo">
+            <i class="fas fa-leaf"></i>
+            <span>FertiGuide</span>
+        </a>
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('Detail') }}">Details</a>
+            <a href="{{ url_for('Model1') }}">Predict</a>
+        </nav>
+        <button id="menu-bar" class="fas fa-bars"></button>
+    </header>
 
-        <a href="#" class="logo"><i class="fas fa-seedling"></i>Ferti</a>
-    
-        <div id="menu-bar" class="fas fa-bars"></div>
-    
-        <nav class="navbar">
-            <a href="#home">home</a>
-            <a href="{{ url_for('Detail') }}">Details</a>
-            <a href="{{ url_for('Model1') }}">Model</a>
-        </nav>
-    
-    </header>
+        <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Smart Fertilizer Recommendation</h1>
+            <p>Optimize crop nutrition with AI-powered recommendations. Increase yields, reduce costs, and promote sustainable farming practices.</p>
+            
+                        <div class="search-bar">
+                <input type="text" id="quick-search" placeholder="Search for a crop or nutrient detail...">
+                <button onclick="handleQuickSearch()"><i class="fas fa-search"></i> Search</button>
+            </div>
 
-<!-- home section starts  -->
+            <a href="{{ url_for('Model1') }}" class="btn">Get Started</a>
+            <a href="{{ url_for('Detail') }}" class="btn btn-secondary">Learn More</a>
+        </div>
+    </section>
 
-<section class="home" id="home">
+        <section id="features">
+        <h2 class="section-title">Why Choose <span>FertiGuide?</span></h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI Powered</h3>
+                <p>Advanced machine learning models analyze your soil and crop conditions for precise recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Eco-Friendly</h3>
+                <p>Reduce chemical usage and environmental impact with optimized fertilizer recommendations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Increase Yields</h3>
+                <p>Maximize crop productivity with science-backed nutrient management strategies.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Cost Effective</h3>
+                <p>Save money by using only the fertilizer your crops need, nothing more.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="content">
-        <h3>Fertilizer Recommendation System</h3>
-        <p>Fertilizer recommendation systems can help farmers make more informed decisions about nutrient management, increase crop yields, reduce production costs, and minimize environmental harm. These systems are a part of precision agriculture, which leverages technology to optimize farming practices and improve overall agricultural sustainability..</p>
-        <a href="#" class="btn">See More</a>
-    </div>
+        <section>
+        <h2 class="section-title">Our <span>Smart Model</span></h2>
+        <div style="max-width: 500px; margin: 0 auto;">
+            <div class="model-showcase">
+                <div class="model-image">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="model-content">
+                    <h3>Fertilizer Recommendation Engine</h3>
+                    <p>Our intelligent system analyzes soil type, crop conditions, and nutrient levels to recommend the best fertilizer.</p>
+                    <a href="{{ url_for('Model1') }}" class="btn">Try Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- <div class="image">
-        <img src="images/home-img.png" alt="">
-    </div> -->
+        <section id="news-tips">
+        <h2 class="section-title">Latest <span>Farm News & Tips</span></h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <h4>Seasonal NPK Adjustments</h4>
+                <p>Discover how the changing seasons impact nutrient requirements for key crops. <a href="#">Read More</a></p>
+            </div>
+            <div class="news-card">
+                <h4>The Future of Precision Farming</h4>
+                <p>An in-depth look at how smart sensors and AI are revolutionizing fertilizer application. <a href="#">Read More</a></p>
+            </div>
+            <div class="news-card">
+                <h4>Handling Moisture Stress in Sandy Soils</h4>
+                <p>Expert tips on water retention and nutrient feeding for fast-draining soil types. <a href="#">Read More</a></p>
+            </div>
+        </div>
+    </section>
 
-</section>
+        <section>
+        <h2 class="section-title">Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.pexels.com/photos/6216870/pexels-photo-6216870.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="Farm 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tci.cornell.edu/wp-content/uploads/2021/05/Crops_soil-1280x1280.jpg" alt="Farm 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.HD1rgnZqNYfn6R_VIhZnwgHaEJ?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Farm 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://natureharmony.org/wp-content/uploads/2021/06/Shed-soil-based-intro-1024x682.jpg" alt="Farm 4">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- home section ends -->
+        <footer>
+        <p><strong>FertiGuide - Smart Fertilizer Recommendation System</strong></p>
+        <p>Created by RITESH HONSHETTE @ IcfaiTech</p>
+        <p>&copy; 2025 All Rights Reserved</p>
+    </footer>
 
-<!-- category section start -->
+<script>
+        // Pass Flask URLs from Jinja2 to JavaScript
+        const detailUrl = "{{ url_for('Detail') }}";
+        const modelUrl = "{{ url_for('Model1') }}";
 
-<section class="popular" id="popular">
+        // Crop list from Model1.html (value: 'Name')
+        // We use this to know where to send the user
+        const cropMap = {
+            'barley': '0',
+            'cotton': '1',
+            'ground nuts': '2',
+            'maize': '3',
+            'millets': '4',
+            'oil seeds': '5',
+            'paddy': '6',
+            'pulses': '7',
+            'sugarcane': '8',
+            'tobacco': '9',
+            'wheat': '10', // <-- This will catch "wheat"
+            'coffee': '11',
+            'kidney beans': '12',
+            'orange': '13',
+            'pomegranate': '14',
+            'rice': '15',
+            'watermelon': '16'
+        };
 
-    <h1 class="heading">OurModel</h1>
+        // Mobile menu toggle
+        const menuBar = document.getElementById('menu-bar');
+        const navbar = document.querySelector('.navbar');
 
-    <div class="box-container">
+        menuBar.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
 
-        <div class="box1">
-            <img src="{{ url_for('static', filename='images/fertilizer.jpg') }}" alt="">
-            <h3>Fertilizer model</h3>   
-            <a href="{{ url_for('Model1') }}" class="btn product_button">visit</a>
-        </div>
-       
-    </div>
+        // Close menu when a link is clicked
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+            });
+        });
 
-</section>
+        // Close menu on scroll
+        window.addEventListener('scroll', () => {
+            navbar.classList.remove('active');
+        });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<section class="gallery" id="gallery">
-
-    <h1 class="heading">Photos OF Farmers </h1>
-
-    <div class="box-container">
-
-        <div class="box">
-            <img src="{{ url_for('static', filename='images/f1.webp') }}" alt="">
+        // NEW: Smart Quick Search Function
+        function handleQuickSearch() {
+            const query = document.getElementById('quick-search').value.trim().toLowerCase();
             
-        </div>
-        <div class="box">
-            <img src="{{ url_for('static', filename='images/f2.jpeg') }}" alt="">
-          
-        </div>
-        <div class="box">
-            <img src="{{ url_for('static', filename='images/f3.png') }}" alt="">
-         
-        </div>
-        <div class="box">
-            <img src="{{ url_for('static', filename='images/f4.jpg') }}" alt="">
-           
-        </div>
-    
+            if (!query) {
+                alert('Please enter a search term.');
+                return;
+            }
 
-    </div>
-
-</section>
-
-
-
-<!-- order section ends -->
-<section class="footer" style="background-color: rgb(255, 255, 255)">
-    <h1>Fertilizer Recommendation System...    Created by krushnakant bankar & Tejas Golhar.. </h1>
-    
-</section>
-
-    <script>
-        
-let menu = document.querySelector('#menu-bar');
-let navbar = document.querySelector('.navbar');
-
-menu.onclick = () =>{
-
-  menu.classList.toggle('fa-times');
-  navbar.classList.toggle('active');
-
-}
-window.onscroll = () =>{
-
-    menu.classList.remove('fa-times');
-    navbar.classList.remove('active');
-  
-    if(window.scrollY > 60){
-      document.querySelector('#scroll-top').classList.add('active');
-    }else{
-      document.querySelector('#scroll-top').classList.remove('active');
-    }
-  
-  }
-  
+            // ACTION 1: Check if the query is a CROP
+            if (cropMap.hasOwnProperty(query)) {
+                const cropValue = cropMap[query];
+                // It's a crop! Redirect to the Model1 page with the crop pre-selected.
+                window.location.href = `${modelUrl}?crop=${cropValue}`;
+            } 
+            // ACTION 2: It's a DETAIL search
+            else {
+                // It's not a crop. Redirect to the Detail page to search content.
+                window.location.href = `${detailUrl}?q=${encodeURIComponent(query)}`;
+            }
+        }
     </script>
 </body>
 </html>
